@@ -1,13 +1,5 @@
 package es.dm2egrupo07.accesoadatos.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Setter;
-import lombok.ToString;
-
-@EqualsAndHashCode
-@ToString
-@AllArgsConstructor
 public class Product {
     private String productCode;
     private String productName;
