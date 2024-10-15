@@ -14,11 +14,11 @@ import java.util.List;
 //Indica cómo se hacen esas acciones definidas en la interfaz.
 public class EmployeeDataAccessImpl implements EmployeeDataAccess {
     //Atributo para el pool de conexiones. Se inyecta a través del constructor
-    private HikariDataSource dataSource;
+    private final ConnectionPool connectionPool;
 
     //Constructor que recibe el pool, permite reuso para mejor rendimiento
     public EmployeeDataAccessImpl(HikariDataSource dataSource) {
-        this.dataSource = dataSource;
+        this.connectionPool = ConnectionPool.getInstance();
     }
 
     @Override
@@ -27,7 +27,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         String sql = "SELECT * FROM employee WHERE employee_number = ?";
 
         //Try with resources para hacer una conexión segura
-        try (Connection conn = dataSource.getConnection();
+        try (Connection conn = connectionPool.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
             //Asignar el valor del parámetro en la consulta
             stmt.setInt(1, employeeNumber);
@@ -53,7 +53,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         String sql = "SELECT * FROM employee";
 
         //Ejecutamos la consulta
-        try(Connection conn = dataSource.getConnection();
+        try(Connection conn = connectionPool.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery()) {
             //Iteramos sobre el resultado mapeando cada fila
@@ -72,7 +72,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         //Definir la consulta SQL para insertar nuevo empleado
         String sql = "INSERT INTO employees (employee_number,lastName, firstName, extension, email, officeCode, reportsTo, jobTitle) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try(Connection conn = dataSource.getConnection();
+        try(Connection conn = connectionPool.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)){
             //Mapeamos todos los valores
             stmt.setInt(1, employee.getEmployeeNumber());
@@ -99,7 +99,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         //Definir la consulta SQL para actualizar
         String sql =  "UPDATE employees SET lastName = ?,firstName = ?,extension = ?,email = ?,officeCode = ?, reportsTo = ?, jobTitle = ? WHERE employee_number = ?";
 
-        try(Connection conn = dataSource.getConnection();
+        try(Connection conn = connectionPool.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             //Asignamos los valores
@@ -125,7 +125,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         //Preparamos la consulta SQL para eliminar un employee
         String sql = "DELETE FROM employees WHERE employee_number = ?";
 
-        try(Connection conn = dataSource.getConnection();
+        try(Connection conn = connectionPool.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)) {
             //Damos valores a la consulta
             stmt.setInt(1, employeeNumber);
