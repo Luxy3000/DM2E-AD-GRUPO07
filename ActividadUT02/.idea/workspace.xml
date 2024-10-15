@@ -13,9 +13,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2nFQnuahV5b8X1qjHpy27zKD7Jh" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -23,9 +23,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Programa.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/adriana/Documentos/GitHub/DM2E-AD-GRUPO07/ActividadUT02",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -33,6 +35,11 @@
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "/home/adriana/Documentos/GitHub/DM2E-AD-GRUPO07/ActividadUT02/src/main/java/org/example/Main.java",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
+    ]
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -52,6 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1728566518353</updated>
       <workItem from="1728566519396" duration="2385000" />
+      <workItem from="1728998291753" duration="2824000" />
     </task>
     <servers />
   </component>
