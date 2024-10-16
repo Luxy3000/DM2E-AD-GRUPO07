@@ -1,13 +1,13 @@
 package es.dm2egrupo07.accesoadatos.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Employee {
+    @EqualsAndHashCode.Include
     private int employeeNumber;
     private String lastName;
     private String firstName;
