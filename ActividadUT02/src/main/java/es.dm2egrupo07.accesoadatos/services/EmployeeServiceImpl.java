@@ -4,6 +4,7 @@ import es.dm2egrupo07.accesoadatos.dataaccess.EmployeeDataAccess;
 import es.dm2egrupo07.accesoadatos.entities.Employee;
 
 import java.util.List;
+import java.util.Optional;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -15,9 +16,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee findById(int employeeNumber) {
+    public Optional<Employee> findById(int employeeNumber) {
         //Se delega la búsqueda a la parte de acceso a datos
-        return employeeDataAccess.findById(employeeNumber);
+        return employeeDataAccess.findEmployee(employeeNumber);
     }
 
     @Override
@@ -27,17 +28,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean updateEmployee(Employee employee) {
+    public Employee updateEmployee(Employee employee) {
         return employeeDataAccess.update(employee);
     }
 
     @Override
-    public boolean deleteEmployee(int employeeNumber) {
-        return employeeDataAccess.delete(employeeNumber);
+    public void deleteEmployee(int employeeNumber) {
+        employeeDataAccess.deleteById(employeeNumber);
     }
 
     @Override
-    public boolean addEmployee(Employee employee) {
+    public Employee saveEmployee(Employee employee) {
         return employeeDataAccess.save(employee);
     }
+
+    @Override
+    public long count() {
+        return employeeDataAccess.count();
+    }
+
+    @Override
+    public boolean existsById(int employeeNumber) {
+        return employeeDataAccess.existById(employeeNumber);
+    }
+
 }

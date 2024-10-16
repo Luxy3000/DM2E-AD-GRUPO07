@@ -3,23 +3,30 @@ package es.dm2egrupo07.accesoadatos.services;
 import es.dm2egrupo07.accesoadatos.entities.Employee;
 
 import java.util.List;
+import java.util.Optional;
 
 //Interfaz para los métodos para trabajar con los empleados en la capa de servicios
 public interface EmployeeService {
 
     //Buscar un empleado por su ID
-    Employee findById(int employeeNumber);
+    Optional<Employee> findById(int employeeNumber);
 
     //Lista de todos los empleados
     List<Employee> findAll();
 
-    //Actualizar indo de un empleado, true si funcionó
-    boolean updateEmployee(Employee employee);
+    //Agregar un empleado, si ya existe
+    Employee saveEmployee(Employee employee);
 
-    //Borrar un empleado, true si funcinó
-    boolean deleteEmployee(int employeeNumber);
+    //Actualizar indo de un empleado
+    Employee updateEmployee(Employee employee);
 
-    //Agregar un empleado, true si funcionó
-    boolean addEmployee(Employee employee);
+    //Borrar un empleado mediante su núero
+    void deleteEmployee(int employeeNumber);
+
+    //Dar longitud de la tabla
+    long count();
+
+    //Verificar que un empleado existe
+    boolean existsById(int employeeNumber);
 
 }
