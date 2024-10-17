@@ -15,13 +15,13 @@ public interface EmployeeService {
     List<Employee> findAll();
 
     //Agregar un empleado, si ya existe
-    Employee saveEmployee(Employee employee);
+    Employee save(Employee employee);
 
     //Actualizar indo de un empleado
-    Employee updateEmployee(Employee employee);
+    Employee update(Employee employee);
 
     //Borrar un empleado mediante su núero
-    void deleteEmployee(int employeeNumber);
+    void deleteById(int employeeNumber);
 
     //Dar longitud de la tabla
     long count();

@@ -22,7 +22,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
     }
 
     @Override
-    public Optional<Employee> findEmployee(int employeeNumber) {
+    public Optional<Employee> findById(int employeeNumber) {
         //Predefinimos la consulta
         String sql = "SELECT * FROM employee WHERE employee_number = ?";
 

@@ -11,7 +11,7 @@ public interface EmployeeDataAccess {
     //Encontrar empleado por el número de empleado,
     //usa numero del empleado como parametro y devuelve obejeto.
     //Employee findById(int employeeNumber); --> Eliminado porque puede dar NullPointerException si no llega a encontrar al employee
-    Optional<Employee> findEmployee(int employeeNumber);
+    Optional<Employee> findById(int employeeNumber);
 
     //Obtener lista de todos los empreados
     //devuelve lista de objetos Employee

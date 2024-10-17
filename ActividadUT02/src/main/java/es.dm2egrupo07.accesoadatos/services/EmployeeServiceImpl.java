@@ -18,7 +18,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Optional<Employee> findById(int employeeNumber) {
         //Se delega la búsqueda a la parte de acceso a datos
-        return employeeDataAccess.findEmployee(employeeNumber);
+        return employeeDataAccess.findById(employeeNumber);
     }
 
     @Override
@@ -28,17 +28,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee updateEmployee(Employee employee) {
+    public Employee update(Employee employee) {
         return employeeDataAccess.update(employee);
     }
 
     @Override
-    public void deleteEmployee(int employeeNumber) {
+    public void deleteById(int employeeNumber) {
         employeeDataAccess.deleteById(employeeNumber);
     }
 
     @Override
-    public Employee saveEmployee(Employee employee) {
+    public Employee save(Employee employee) {
         return employeeDataAccess.save(employee);
     }
 
