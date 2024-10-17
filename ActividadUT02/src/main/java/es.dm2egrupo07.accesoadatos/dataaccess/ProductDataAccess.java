@@ -4,23 +4,57 @@ import es.dm2egrupo07.accesoadatos.entities.Product;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Interfaz para el acceso a datos de productos.
+ * Tiene métodos para realizar operaciones sobre sobre
+ * productos, como contar, buscar, guardar y eliminar.
+ */
 public interface ProductDataAccess {
 
+    /**
+     * Cuenta el número total de productos.
+     *
+     * @return el número total de productos.
+     */
     long count();
+
+    /**
+     * Verifica si existe un producto con la id dada.
+     *
+     * @param id el identificador del producto.
+     * @return true si el producto existe, false en caso contrario.
+     */
     boolean existsById(String id);
+
+    /**
+     * Busca un producto por su id.
+     *
+     * @param id el identificador del producto.
+     * @return un Optional que contiene el producto si se encuentra,
+     *         o vacío si no se encuentra.
+     */
     Optional<Product> findById(String id);
+
+    /**
+     * Lista todos los productos.
+     *
+     * @return una lista con todos los productos.
+     */
     List<Product> findAll();
+
+    /**
+     * Guarda un nuevo producto o actualiza uno existente.
+     *
+     * @param product el producto a guardar.
+     * @return el producto guardado.
+     */
     Product save(Product product);
+
+    /**
+     * Elimina un producto por su identificador.
+     *
+     * @param id la id del producto a eliminar.
+     */
     void deleteById(String id);
-
-
-    /*
-    • Constructor en el que reciba las dependencias necesarias, si es que las hay. Las dependencias, siempre que sea posible, se inyectarán como interfaces.
-    • long count() – Cuenta el número total de entidades en la tabla.
-    • boolean existsById(ID id) – Verifica si una entidad con un ID dado existe.
-    • Optional<T> findById(ID id) – Busca una entidad por su ID. Si no existe devuelve Optional vacío.
-    • List<T> findAll() – Recupera todas las entidades.
-    • T save(T entity) – Guarda una entidad. Si la entidad ya existe, la actualiza. Recibe la entidad que se va a guardar. Devuelve la entidad guardada, con los datos actualizados (id si es nueva)
-    • void deleteById(ID id) – Elimina la entidad con el ID especificado.
-    * */
 }
+
