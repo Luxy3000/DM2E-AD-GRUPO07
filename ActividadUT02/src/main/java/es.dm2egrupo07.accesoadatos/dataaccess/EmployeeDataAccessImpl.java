@@ -13,6 +13,8 @@ import java.util.Optional;
 //La implementacion de la interfaz da el cómo funcionan las acciones establecidas en la interfaz
 //Indica cómo se hacen esas acciones definidas en la interfaz.
 public class EmployeeDataAccessImpl implements EmployeeDataAccess {
+
+
     //Atributo para el pool de conexiones. Se inyecta a través del constructor
     private final ConnectionPool connectionPool;
 
@@ -21,6 +23,16 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         this.connectionPool = ConnectionPool.getInstance();
     }
 
+    /**
+     * Sobreescribe el metodo de la interfaz y
+     * busca un empleado en la base de datos por su id.
+     *
+     * @param employeeNumber el número identificador del empleado
+     * @return  un Optional que contiene el empleado si se encuentra,
+     *          o vacío si no se encuentra.
+     *
+     * @throws SQLException si ocurre un error al ejecutar la consulta SQL
+     * */
     @Override
     public Optional<Employee> findById(int employeeNumber) {
         //Predefinimos la consulta
@@ -45,7 +57,14 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         return Optional.empty();
     }
 
-
+    /**
+     * Sobreescribe el metodo en la interfaz y genera una lista
+     * de todos los empleados en la base de datos.
+     *
+     * @return list de todos los empleados
+     *
+     * @throws SQLException si ocurre algún error al ejecutar la consulta SQL
+     * */
     @Override
     public List<Employee> findAll() {
         //Lista para almacenar todos los empleados de la BBDD
@@ -67,6 +86,15 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         return employees;
     }
 
+    /**
+     * Sobreescribe el metodo de la interfaz y agrega o actualiza
+     * un empleado en la base de datos.
+     *
+     * @param employee empleado a agregar o actualizar
+     * @return  empleado agregado o actualizado
+     *
+     * @throws SQLException si ocurre algún error al ejecutar la consulta SQL
+     * */
     @Override
     public Employee save(Employee employee) {
         //Verificar que el empleado no existe ya en la BBSS
@@ -102,6 +130,15 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         return null;
     }
 
+    /**
+     * Sobreescribe el metodo en la interfaz y actualiza un empleado
+     * en la base de datos.
+     *
+     * @param employee empleado a actualizar
+     * @return empleado actualizado
+     *
+     * @throws SQLException si ocurre algún problema al realizar la consulta SQL
+     * */
     @Override
     public Employee update(Employee employee) {
         //Definir la consulta SQL para actualizar
@@ -129,6 +166,14 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         return null;
     }
 
+    /**
+     * Sobreescribe el metodo de a interfaz y elimina un empleado
+     * de la base de datos.
+     *
+     * @param employeeNumber número identificatibo del empleado
+     *
+     * @throws SQLException si ocurre algún problema con la consulta SQL
+     * */
     @Override
     public void deleteById(int employeeNumber) {
         //Preparamos la consulta SQL para eliminar un employee
@@ -147,6 +192,13 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         }
     }
 
+    /**
+     * Sobreescribe el metodo en la interfaz y cuenta todos los empleados en la base de datos.
+     *
+     * @return número de empleados en la base de datos
+     *
+     * @throws SQLException si ocurre algún problema con la consulta SQL
+     * */
     @Override
     public long count() {
         String sql = "SELECT COUNT(*) FROM employees";
@@ -163,6 +215,15 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         return 0;
     }
 
+    /**
+     * Sobreescribe el metodo en la interfaz y busca un empleado en
+     * la base de datos por su número identificativo de empleado.
+     *
+     * @param employeeNumber número identificatibo de empleado.
+     * @return true si existe en la base de datos, false si no existe.
+     *
+     * @throws SQLException si ocurre algún problema en la consulta SQL
+     * */
     @Override
     public boolean existById(int employeeNumber) {
         String sql = "SELECT * FROM employees WHERE employee_number = ?";
@@ -178,7 +239,9 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         return false;
     }
 
-    //Funcion privada para el mapeo del rs a un objeto Employee
+    /**
+     * Función privada para el mapeo del ResultSet a un objeto Employee
+     * */
     private Employee mapToEmployee(ResultSet rs) throws SQLException {
         return new Employee(
                 rs.getInt("employeeNumber"),
