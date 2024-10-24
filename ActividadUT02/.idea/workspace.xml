@@ -41,7 +41,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "/home/adriana/Documentos/GitHub/DM2E-AD-GRUPO07/ActividadUT02/src/main/java/org/example/Main.java",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "Errors",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -69,7 +69,12 @@
       <workItem from="1728566519396" duration="2385000" />
       <workItem from="1728998291753" duration="6193000" />
       <workItem from="1729084457030" duration="6645000" />
-      <workItem from="1729170923689" duration="3778000" />
+      <workItem from="1729170923689" duration="6153000" />
+      <workItem from="1729177929698" duration="21000" />
+      <workItem from="1729528076332" duration="2190000" />
+      <workItem from="1729610098624" duration="955000" />
+      <workItem from="1729690650737" duration="2977000" />
+      <workItem from="1729780109156" duration="2695000" />
     </task>
     <servers />
   </component>
