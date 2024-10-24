@@ -5,6 +5,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+/**
+ * Clase que representa a un cliente en la base de datos, incluyendo número de cliente, apellido, nombre, número de
+ * teléfono, dirección, ciudad, estado, código postal, país, número de ventas que ha realizado y límite de crédito.
+ */
 @AllArgsConstructor
 @Getter
 @ToString
