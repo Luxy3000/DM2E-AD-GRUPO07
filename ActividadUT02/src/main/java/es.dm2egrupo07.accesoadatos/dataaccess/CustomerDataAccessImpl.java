@@ -9,18 +9,18 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Clase que accede a la base de datos y recopila la información necesaria.
+ * Clase que implementa la interfaz CustomerDataAccess para darle funcionalidad a las acciones establecidas en ella.
  */
-public class CustomerDataAccessImpl {
+public class CustomerDataAccessImpl implements CustomerDataAccess {
 
-  private static final String SQL_COUNT = "select count(*) from customers";
+    private static final String SQL_COUNT = "select count(*) from customers";
     private static final String SQL_FIND_BY_ID = "select customerNumber, customerName, contactLastName, \n" +
             "contactFirstName, phone, addressLine1, addressLine2, city, state, postalCode, country, \n" +
             "salesRepEmployeeNumber, creditLimit from customers where customerNumber = ?";
     private static final String SQL_FIND_ALL = "select * from customers";
     private static final String SQL_INSERT = "insert into customers values(?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "update customers set contactLastName = ?, contactFirstName = ?, phone = ? " +
-            "where customerNumber = ?";
+    private static final String SQL_UPDATE = "update customers set contactLastName = ?, contactFirstName = ?, " +
+            "phone = ? where customerNumber = ?";
     private static final String SQL_DELETE_BY_ID = "delete from customers where customerNumber = ?";
 
     private final ConnectionPool connectionPool;
@@ -30,8 +30,9 @@ public class CustomerDataAccessImpl {
     }
 
     /**
-     * Método que cuenta el número total de entidades de la tabla Customer.
-     * @return número de entidades.
+     * Sobreescribe el metodo de la interfaz para contar el número total de entidades de la tabla Customer.
+     * @return número de entidades
+     * @throws SQLException si ocurre algún problema al realizar la consulta SQL
      */
     @Override
     public long count() {
@@ -51,9 +52,10 @@ public class CustomerDataAccessImpl {
     }
 
     /**
-     * Método para encontrar un Customer en la base de datos según su número.
+     * Sobreescribe el metodo de la interfaz para encontrar un Customer en la base de datos según su número.
      * @param id
-     * @return el Customer correspondiente con todos sus datos.
+     * @return el Customer correspondiente con todos sus datos
+     * @throws SQLException si ocurre algún problema al realizar la consulta SQL
      */
     @Override
     public Optional<Customer> findById(int id) {
@@ -99,9 +101,10 @@ public class CustomerDataAccessImpl {
     }
 
     /**
-     * Método que indica si existe o no un Customer en la base de datos según su número.
+     * Sobreescribe el metodo de la interfaz para indicar si existe o no un Customer en la base de datos según su número.
      * @param id
-     * @return false si no existe y true si existe.
+     * @return false si no existe y true si existe
+     * @throws SQLException si ocurre algún problema al realizar la consulta SQL
      */
     @Override
     public boolean existsById(int id) {
@@ -126,8 +129,9 @@ public class CustomerDataAccessImpl {
     }
 
     /**
-     * Método para buscar todos los Customer que hay en la base de datos.
-     * @return una lista de Customer con todos los que haya.
+     * Sobreescribe el metodo de la interfaz para buscar todos los Customer que hay en la base de datos.
+     * @return una lista de Customer con todos los que haya
+     * @throws SQLException si ocurre algún problema al realizar la consulta SQL
      */
     @Override
     public List<Customer> findAll() {
@@ -171,9 +175,11 @@ public class CustomerDataAccessImpl {
     }
 
     /**
-     * Método para insertar y guardar un Customer nuevo en la base de datos con los valores que le de el usuario.
+     * Sobreescribe el metodo de la interfaz para insertar y guardar un Customer nuevo en la base de datos con los
+     * valores que le de el usuario.
      * @param customer
-     * @return el Customer guardado.
+     * @return el Customer guardado
+     * @throws SQLException si ocurre algún problema al realizar la consulta SQL
      */
     @Override
     public Customer save(Customer customer) {
@@ -214,9 +220,10 @@ public class CustomerDataAccessImpl {
     }
 
     /**
-     * Método para actualizar un Customer.
+     * Sobreescribe el metodo de la interfaz para actualizar un Customer.
      * @param customer
-     * @return el customer modificado.
+     * @return el customer modificado
+     * @throws SQLException si ocurre algún problema al realizar la consulta SQL
      */
     public Customer update(Customer customer) {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -238,8 +245,9 @@ public class CustomerDataAccessImpl {
     }
 
     /**
-     * Método para eliminar un Customer de la base de datos según su número.
+     * Sobreescribe el metodo de la interfaz para eliminar un Customer de la base de datos según su número.
      * @param id
+     * @throws SQLException si ocurre algún problema al realizar la consulta SQL
      */
     @Override
     public void deleteById(int id) {
