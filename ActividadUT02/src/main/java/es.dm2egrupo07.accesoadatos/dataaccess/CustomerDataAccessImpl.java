@@ -1,5 +1,7 @@
 package es.dm2egrupo07.accesoadatos.dataaccess;
 
+import es.dm2egrupo07.accesoadatos.entities.Customer;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
