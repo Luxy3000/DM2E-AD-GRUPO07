@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Customer {
-  @EqualsAndHashCode.Include
+    @EqualsAndHashCode.Include
     private int customerNumber;
     private String customerName;
     private String contactLastName;
