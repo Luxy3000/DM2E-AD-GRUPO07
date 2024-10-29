@@ -1,5 +1,6 @@
 package es.dm2egrupo07.accesoadatos.dataaccess;
 
+import es.dm2egrupo07.accesoadatos.dto.CreateOrderDto;
 import es.dm2egrupo07.accesoadatos.entities.Order;
 
 import java.util.List;
@@ -44,12 +45,11 @@ public interface OrderDataAccess {
     List<Order> findAll();
 
     /**
-     * Guarda un nuevo pedido en el sistema.
+     * Crea un nuevo pedido junto con los detalles del pedido
      *
-     * @param order el pedido a agregar.
-     * @return el pedido guardado, que puede incluir un ID asignado.
+     * @param orderDto clase con datos necesarios para completar todas las tablas necesarias para el pedido
      */
-    Order save(Order order);
+    void create(CreateOrderDto orderDto);
 
     /**
      * Actualiza un pedido existente en el sistema.

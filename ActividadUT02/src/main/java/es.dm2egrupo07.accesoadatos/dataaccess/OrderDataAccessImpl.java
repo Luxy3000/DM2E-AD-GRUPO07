@@ -1,8 +1,10 @@
 package es.dm2egrupo07.accesoadatos.dataaccess;
 
+import es.dm2egrupo07.accesoadatos.dto.CreateOrderDto;
 import es.dm2egrupo07.accesoadatos.entities.Order;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 public class OrderDataAccessImpl implements OrderDataAccess {
@@ -70,8 +72,41 @@ public class OrderDataAccessImpl implements OrderDataAccess {
     }
 
     @Override
-    public Order save(Order order) {
-        return null;
+    public void create(CreateOrderDto orderDto) {
+        String orderSql = "INSERT INTO orders (orderNumber, orderDate, requiredDate, shippedDate, status, comments, customerNumber) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String orderDetailSql = "INSERT INTO orderdetails (orderNumber, productCode, quantityOrdered, priceEach, orderLineNumber) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = ConnectionPool.getInstance().getConnection();){
+            conn.setAutoCommit(false);
+
+            try(PreparedStatement ps = conn.prepareStatement(orderSql);) {
+                ps.setInt(1, orderDto.getOrderNumber());
+                ps.setDate(2, new Date(orderDto.getOrderDate().getTime()));
+                ps.setDate(3, new Date(orderDto.getRequiredDate().getTime()));
+                ps.setDate(4, orderDto.getShippedDate() != null ? new Date(orderDto.getShippedDate().getTime()) : null);
+                ps.setString(5, orderDto.getStatus());
+                ps.setString(6, orderDto.getComments());
+                ps.setInt(7, orderDto.getCustomerNumber());
+                ps.executeUpdate();
+            }
+
+            List<CreateOrderDto.OrderDetailDto> orderDetails = orderDto.getOrderDetails();
+            try (PreparedStatement detailps = conn.prepareStatement(orderDetailSql)) {
+                for(CreateOrderDto.OrderDetailDto detail : orderDetails) {
+                    detailps.setInt(1, orderDto.getOrderNumber() );
+                    detailps.setString(2, detail.getProductCode() );
+                    detailps.setInt(3, detail.getQuantityOrdered() );
+                    detailps.setDouble(4, detail.getPriceEach() );
+                    detailps.setInt(5, detail.getOrderLineNumber() );
+                    detailps.addBatch();
+                }
+                detailps.executeBatch();
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package es.dm2egrupo07.accesoadatos.services;
 
+import es.dm2egrupo07.accesoadatos.dto.CreateOrderDto;
 import es.dm2egrupo07.accesoadatos.entities.Order;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface OrderService {
     boolean existsById(int id);
     Optional<Order> findById(int id);
     List<Order> findAll();
-    Order save(Order order);
+    void create (CreateOrderDto orderDto);
     Order update(Order order);
     void deleteById(int id);
 }

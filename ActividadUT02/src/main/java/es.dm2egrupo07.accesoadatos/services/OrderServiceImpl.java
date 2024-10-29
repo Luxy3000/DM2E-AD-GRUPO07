@@ -1,6 +1,7 @@
 package es.dm2egrupo07.accesoadatos.services;
 
 import es.dm2egrupo07.accesoadatos.dataaccess.OrderDataAccess;
+import es.dm2egrupo07.accesoadatos.dto.CreateOrderDto;
 import es.dm2egrupo07.accesoadatos.entities.Order;
 
 import java.util.List;
@@ -57,15 +58,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * Sobreescribe el método de la interfaz para delegar su funcionamiento a la capa de acceso a datos para guardar un
+     * Sobreescribe el método de la interfaz para delegar su funcionamiento a la capa de acceso a datos para crear un
      * Order nuevo.
-     * @param order
-     * @return el Customer guardado
+     * @param orderDto
      */
     @Override
-    public Order save(Order order) {
-        return orderDataAccess.save(order);
-    }
+    public void create(CreateOrderDto orderDto) { orderDataAccess.create(orderDto); }
 
     /**
      * Sobreescribe el método de la interfaz para delegar su funcionamiento a la capa de acceso a datos para actualizar
