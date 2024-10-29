@@ -105,7 +105,7 @@ public class ProductTests {
         String productId = "196";
         Optional<Product> productIdFound = productService.findById(productId);
         if (productIdFound.isPresent()) {
-            System.out.printf("El producto se ha eliminado correctamente");
+            System.out.println("El producto se ha eliminado correctamente");
         }
         else {
             System.out.println("El producto no existe");

@@ -1,5 +1,7 @@
 package es.dm2egrupo07.accesoadatos.dataaccess;
 
+import es.dm2egrupo07.accesoadatos.entities.Customer;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +20,7 @@ public class CustomerDataAccessImpl implements CustomerDataAccess {
             "contactFirstName, phone, addressLine1, addressLine2, city, state, postalCode, country, \n" +
             "salesRepEmployeeNumber, creditLimit from customers where customerNumber = ?";
     private static final String SQL_FIND_ALL = "select * from customers";
-    private static final String SQL_INSERT = "insert into customers values(?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_INSERT = "insert into customers values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_UPDATE = "update customers set contactLastName = ?, contactFirstName = ?, " +
             "phone = ? where customerNumber = ?";
     private static final String SQL_DELETE_BY_ID = "delete from customers where customerNumber = ?";

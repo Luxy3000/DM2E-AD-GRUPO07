@@ -105,7 +105,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         }
 
         //Definir la consulta SQL para insertar nuevo empleado
-        String sql = "INSERT INTO employees (employee_number,lastName, firstName, extension, email, officeCode, reportsTo, jobTitle) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO employees (employee_number ,lastName, firstName, extension, email, officeCode, reportsTo, jobTitle) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try(Connection conn = connectionPool.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)){
