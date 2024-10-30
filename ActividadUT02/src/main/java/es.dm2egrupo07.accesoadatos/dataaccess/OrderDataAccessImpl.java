@@ -101,8 +101,7 @@ public class OrderDataAccessImpl implements OrderDataAccess {
     /**
      * Guarda un nuevo pedido en la base de datos.
      *
-     * @param order el pedido a guardar.
-     * @return el pedido guardado, o null si no se realiza la operación.
+     * @param orderDto instancia de la clase CreateOrderDto
      */
     @Override
     public void create(CreateOrderDto orderDto) {
