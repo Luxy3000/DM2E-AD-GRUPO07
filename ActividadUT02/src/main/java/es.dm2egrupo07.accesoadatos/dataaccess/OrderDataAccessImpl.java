@@ -160,7 +160,20 @@ public class OrderDataAccessImpl implements OrderDataAccess {
      */
     @Override
     public void deleteById(int id) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
 
+            PreparedStatement ps1 = connection.prepareStatement("delete from orders where orderNumber = ?");
+            ps1.setInt(1, id);
+            ResultSet rs1 = ps1.executeQuery();
+
+            PreparedStatement ps2 = connection.prepareStatement("delete from orderDetails where orderNumber = ?");
+            ps2.setInt(1, id);
+            ResultSet rs2 = ps2.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("ERROR al intentar eliminar un Order por su ID.\n");
+            e.printStackTrace();
+        }
     }
 
     /**
