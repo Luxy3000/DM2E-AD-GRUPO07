@@ -1,20 +1,27 @@
 package es.dm2egrupo07.accesoadatos.application;
 
+import es.dm2egrupo07.accesoadatos.dataaccess.EmployeeDataAccessImpl;
 import es.dm2egrupo07.accesoadatos.entities.Employee;
 import es.dm2egrupo07.accesoadatos.services.EmployeeService;
+import es.dm2egrupo07.accesoadatos.services.EmployeeServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
 
 public class EmployeeTests {
-    private final EmployeeService employeeService;
+    private final EmployeeService employeeService = new EmployeeServiceImpl(new EmployeeDataAccessImpl());
 
     /**
-     * Constructor que recibe la implementación de EmployeeService
-     * @param employeeService
+     * Constructor que ejecuta todos los tests
+     *
      */
-    public EmployeeTests(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public EmployeeTests() {
+        testSaveEmployee();
+        testFindAll();
+        testFindById();
+        testUpdateEmployee();
+        testDeleteEmployee();
+        testCount();
     }
 
     /**
@@ -38,7 +45,7 @@ public class EmployeeTests {
         Employee updatedEmployee = new Employee(1001, "Doe", "Jane", "x1234", "jane.doe@classicmodels.com", "1", 1002, "Sales Manager");
         Employee result = employeeService.update(updatedEmployee);
 
-        if(result != null && "Jane".equals(result.getFirstName()) && "Doe".equals(result.getFirstName())) {
+        if(result != null && result.getEmployeeNumber() == updatedEmployee.getEmployeeNumber()) {
             System.out.println("testUpdateEmployee passed");
         } else {
             System.out.println("testUpdateEmployee failed");

@@ -36,7 +36,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
     @Override
     public Optional<Employee> findById(int employeeNumber) {
         //Predefinimos la consulta
-        String sql = "SELECT * FROM employee WHERE employee_number = ?";
+        String sql = "SELECT * FROM employees WHERE employeeNumber = ?";
 
         //Try with resources para hacer una conexión segura
         try (Connection conn = connectionPool.getConnection();
@@ -69,7 +69,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
     public List<Employee> findAll() {
         //Lista para almacenar todos los empleados de la BBDD
         List<Employee> employees = new ArrayList<>();
-        String sql = "SELECT * FROM employee";
+        String sql = "SELECT * FROM employees";
 
         //Ejecutamos la consulta
         try(Connection conn = connectionPool.getConnection();
@@ -105,7 +105,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
         }
 
         //Definir la consulta SQL para insertar nuevo empleado
-        String sql = "INSERT INTO employees (employee_number ,lastName, firstName, extension, email, officeCode, reportsTo, jobTitle) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO employees (employeeNumber ,lastName, firstName, extension, email, officeCode, reportsTo, jobTitle) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try(Connection conn = connectionPool.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)){
@@ -142,7 +142,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
     @Override
     public Employee update(Employee employee) {
         //Definir la consulta SQL para actualizar
-        String sql =  "UPDATE employees SET lastName = ?,firstName = ?,extension = ?,email = ?,officeCode = ?, reportsTo = ?, jobTitle = ? WHERE employee_number = ?";
+        String sql =  "UPDATE employees SET lastName = ?,firstName = ?,extension = ?,email = ?,officeCode = ?, reportsTo = ?, jobTitle = ? WHERE employeeNumber = ?";
 
         try(Connection conn = connectionPool.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -177,7 +177,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
     @Override
     public void deleteById(int employeeNumber) {
         //Preparamos la consulta SQL para eliminar un employee
-        String sql = "DELETE FROM employees WHERE employee_number = ?";
+        String sql = "DELETE FROM employees WHERE employeeNumber = ?";
 
         try(Connection conn = connectionPool.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -226,7 +226,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
      * */
     @Override
     public boolean existById(int employeeNumber) {
-        String sql = "SELECT * FROM employees WHERE employee_number = ?";
+        String sql = "SELECT * FROM employees WHERE employeeNumber = ?";
         try(Connection connection = connectionPool.getConnection();
             PreparedStatement stmt = connection.prepareStatement(sql)){
             stmt.setInt(1, employeeNumber);
