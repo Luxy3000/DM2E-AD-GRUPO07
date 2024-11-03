@@ -27,8 +27,9 @@ public class CustomerDataAccessImpl implements CustomerDataAccess {
 
     private final ConnectionPool connectionPool;
 
-    public CustomerDataAccessImpl(ConnectionPool connectionPool) {
-        this.connectionPool = connectionPool;
+    public CustomerDataAccessImpl() {
+
+        this.connectionPool = ConnectionPool.getInstance();
     }
 
     /**
