@@ -1,7 +1,9 @@
 package es.dm2egrupo07.accesoadatos.application;
 
+import es.dm2egrupo07.accesoadatos.dataaccess.CustomerDataAccessImpl;
 import es.dm2egrupo07.accesoadatos.entities.Customer;
 import es.dm2egrupo07.accesoadatos.services.CustomerService;
+import es.dm2egrupo07.accesoadatos.services.CustomerServiceImpl;
 
 import java.util.List;
 
@@ -11,10 +13,16 @@ import java.util.List;
  */
 public class CustomerTests {
 
-    private final CustomerService customerService;
+    private final CustomerService customerService = new CustomerServiceImpl(new CustomerDataAccessImpl());
 
-    public CustomerTests(CustomerService customerService) {
-        this.customerService = customerService;
+    public CustomerTests() {
+        save();
+        update();
+        findById();
+        findAll();
+        count();
+        existsById();
+        deleteById();
     }
 
     /**
