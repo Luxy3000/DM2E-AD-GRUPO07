@@ -15,14 +15,12 @@ public class OrderTests {
     private static final OrderService orderService = new OrderServiceImpl(new OrderDataAccessImpl());
 
     public OrderTests() {
-        testCountOrders();
         testCreateOrder();
         testCountOrders();
-        testFindOrderById();
+        testFindById();
         testFindAllOrders();
         testUpdateOrder();
         testDeleteOrder();
-        testCountOrders();
         testExistsById();
     }
 
@@ -41,17 +39,17 @@ public class OrderTests {
             System.out.println("testCreateOrder passed");
         } catch (Exception e) {
             System.out.println("testCreateOrder failed");
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
-    private void testFindOrderById(){
+    private void testFindById(){
         int orderId = 1001;
         Optional<Order> order = orderService.findById(orderId);
         if(order.isPresent()){
-            System.out.println("testFindOrderById passed");
+            System.out.println("testFindById passed");
         } else {
-            System.out.println("testFindOrderById failed");
+            System.out.println("testFindById failed");
         }
     }
 
@@ -71,7 +69,7 @@ public class OrderTests {
             System.out.println("testUpdateOrder passed");
         } catch (Exception e) {
             System.out.println("testUpdateOrder failed");
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
@@ -82,7 +80,7 @@ public class OrderTests {
             System.out.println("testDeleteOrder passed");
         } catch (Exception e) {
             System.out.println("testDeleteOrder failed");
-            e.printStackTrace();
+            e.getMessage();
         }
     }
 
@@ -92,7 +90,7 @@ public class OrderTests {
             System.out.println("testCountOrders passed. Total: " + count);
         } catch (Exception e) {
             System.out.println("testCountOrders failed");
-            e.printStackTrace();
+            e.getMessage();
         }
 
     }

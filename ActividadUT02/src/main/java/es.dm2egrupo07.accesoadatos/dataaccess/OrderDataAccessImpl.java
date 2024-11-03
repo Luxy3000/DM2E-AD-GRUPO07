@@ -72,7 +72,7 @@ public class OrderDataAccessImpl implements OrderDataAccess {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error al consultar el producto", e);
+            e.printStackTrace();
         }
         return Optional.empty();
     }
