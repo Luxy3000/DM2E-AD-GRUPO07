@@ -1,7 +1,10 @@
 package es.dm2egrupo07.accesoadatos.application;
 
+import es.dm2egrupo07.accesoadatos.dataaccess.ProductDataAccessImpl;
 import es.dm2egrupo07.accesoadatos.entities.Product;
 import es.dm2egrupo07.accesoadatos.services.ProductService;
+import es.dm2egrupo07.accesoadatos.services.ProductServiceImpl;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,17 +13,22 @@ import java.util.Optional;
  * Clase que contiene pruebas para el servicio de productos.
  * Utiliza {@link ProductService} para realizar las operaciones de prueba.
  */
+@NoArgsConstructor
 public class ProductTests {
-    private final ProductService productService;
+    private final ProductService productService = new ProductServiceImpl(new ProductDataAccessImpl());
 
-    /**
-     * Constructor de la clase ProductTests.
-     *
-     * @param productService el servicio de productos que se utilizará para las pruebas.
-     */
-    public ProductTests(ProductService productService) {
-        this.productService = productService;
-    }
+//    /**
+//     * Constructor de la clase ProductTests.
+//     *
+//     */
+//    public ProductTests() {
+//        testFindAll();
+//        testSave();
+//        testUpdate();
+//        testFindById();
+//        testExistsById();
+//        testDelete();
+//    }
 
     /**
      * Prueba para encontrar todos los productos.

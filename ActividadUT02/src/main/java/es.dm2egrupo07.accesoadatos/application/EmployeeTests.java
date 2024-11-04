@@ -4,25 +4,27 @@ import es.dm2egrupo07.accesoadatos.dataaccess.EmployeeDataAccessImpl;
 import es.dm2egrupo07.accesoadatos.entities.Employee;
 import es.dm2egrupo07.accesoadatos.services.EmployeeService;
 import es.dm2egrupo07.accesoadatos.services.EmployeeServiceImpl;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
 
+@NoArgsConstructor
 public class EmployeeTests {
     private final EmployeeService employeeService = new EmployeeServiceImpl(new EmployeeDataAccessImpl());
 
-    /**
-     * Constructor que ejecuta todos los tests
-     *
-     */
-    public EmployeeTests() {
-        testSaveEmployee();
-        testFindAll();
-        testFindById();
-        testUpdateEmployee();
-        testDeleteEmployee();
-        testCount();
-    }
+//    /**
+//     * Constructor que ejecuta todos los tests
+//     *
+//     */
+//    public EmployeeTests() {
+//        testSaveEmployee();
+//        testFindAll();
+//        testFindById();
+//        testUpdateEmployee();
+//        testDeleteEmployee();
+//        testCount();
+//    }
 
     /**
      * Test para probar la inserción de un nuevo empleado

@@ -4,6 +4,7 @@ import es.dm2egrupo07.accesoadatos.dataaccess.CustomerDataAccessImpl;
 import es.dm2egrupo07.accesoadatos.entities.Customer;
 import es.dm2egrupo07.accesoadatos.services.CustomerService;
 import es.dm2egrupo07.accesoadatos.services.CustomerServiceImpl;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -11,19 +12,20 @@ import java.util.List;
  * Clase para probar que los métodos realizados en las otras clases funcionan correctamente antes de implementarlos en
  * el programa principal.
  */
+@NoArgsConstructor
 public class CustomerTests {
 
     private final CustomerService customerService = new CustomerServiceImpl(new CustomerDataAccessImpl());
 
-    public CustomerTests() {
-        save();
-        update();
-        findById();
-        findAll();
-        count();
-        existsById();
-        deleteById();
-    }
+//    public CustomerTests() {
+//        save();
+//        update();
+//        findById();
+//        findAll();
+//        count();
+//        existsById();
+//        deleteById();
+//    }
 
     /**
      * Método para acceder a la interfaz CustomerService y probar su método para contar el múnero de tablas de Customer.
