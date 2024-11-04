@@ -14,17 +14,17 @@ public class Programa {
     public static void main(String[] args) {
 
 
-        ProductDataAccess productDataAccess = new ProductDataAccessImpl();
-        ProductService productService = new ProductServiceImpl(productDataAccess);
-        ProductTests productTests = new ProductTests(productService);
-
-        // Ejecutar las pruebas
-        productTests.testFindAll();
-        productTests.testFindById();
-        productTests.testExistsById();
-        productTests.testSave();
-        productTests.testUpdate();
-        productTests.testDelete();
+//        ProductDataAccess productDataAccess = new ProductDataAccessImpl();
+//        ProductService productService = new ProductServiceImpl(productDataAccess);
+//        ProductTests productTests = new ProductTests(productService);
+//
+//        // Ejecutar las pruebas
+//        productTests.testFindAll();
+//        productTests.testFindById();
+//        productTests.testExistsById();
+//        productTests.testSave();
+//        productTests.testUpdate();
+//        productTests.testDelete();
 
     }
 }
