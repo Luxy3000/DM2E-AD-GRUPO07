@@ -14,11 +14,13 @@ import java.util.List;
 public class CityWeather {
     /* Seguir editando según se necesite para las otras clases */
     private String name;
+    private String id;
     private List<Double> temperatures;
     private List<Double> humidities;
     private List<Double> pressures;
 
-    public CityWeather(String name) {
+    public CityWeather(String id, String name) {
+        this.id = id;
         this.name = name;
         this.temperatures = new ArrayList<>();
         this.humidities = new ArrayList<>();
