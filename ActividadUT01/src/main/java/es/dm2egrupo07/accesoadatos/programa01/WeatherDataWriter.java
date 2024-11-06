@@ -1,11 +1,11 @@
 package es.dm2egrupo07.accesoadatos.programa01;
 
-
-import org.w3c.dom.Document;
+import org.w3c.dom.*;
 
 import javax.xml.parsers.*;
+import javax.xml.transform.*;
 import java.io.File;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Clase creada para generar el archivo XML de salina y gestionar la ubicación para el archivo de salida
@@ -13,12 +13,14 @@ import java.util.Scanner;
 public class WeatherDataWriter {
 
     public void generarXml() throws ParserConfigurationException {
+
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-
         Document xmlDocument = builder.newDocument();
-
         xmlDocument.setXmlVersion("1.0");
         xmlDocument.setXmlStandalone(true);
+
+        Element cityElement = newDoc.createElement("city");
+
     }
 
     public boolean ubicacionXmlSalida(String ruta) {

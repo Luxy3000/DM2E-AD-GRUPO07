@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * Clase creada para almacenar lso resultados de cada ciudad
+ * Clase creada para almacenar los resultados de cada ciudad
  */
 @Getter
 @AllArgsConstructor

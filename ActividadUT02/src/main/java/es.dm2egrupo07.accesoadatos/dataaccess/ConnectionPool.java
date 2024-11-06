@@ -6,13 +6,13 @@ import java.sql.*;
 
 public class ConnectionPool {
     @Getter
-    private static ConnectionPool instance = new ConnectionPool();
+    private static final ConnectionPool instance = new ConnectionPool();
 
     private static final String CONNECTION_STRING = "jdbc:mariadb://localhost/classicmodels";
     private static final String USERNAME = "classicmodels";
     private static final String PASSWORD = "classicmodels";
 
-    private HikariDataSource dataSource;
+    private final HikariDataSource dataSource;
 
     private ConnectionPool() {
         HikariConfig config = new HikariConfig();

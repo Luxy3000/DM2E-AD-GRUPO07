@@ -1,5 +1,8 @@
 package es.dm2egrupo07.accesoadatos.programa01;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Clase creada para calcular temperaturas mínimas, máximas, humedad y presión promedio de las ciudades
  */

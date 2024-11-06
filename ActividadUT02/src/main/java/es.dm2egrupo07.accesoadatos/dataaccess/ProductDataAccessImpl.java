@@ -159,7 +159,7 @@ public class ProductDataAccessImpl implements ProductDataAccess {
      */
     private boolean create(Product product) {
 
-        String sqlSave = "INSERT INTO products (productCode, productName, productLine, productScale, productVendor, productDescription, quantityInStock, buyPrice, MSRP) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlSave = "INSERT INTO products (productCode, productName, productLine, productScale, productVendor, productDescription, quantityInStock, buyPrice, MSRP) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         try(Connection connection = ConnectionPool.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sqlSave)){

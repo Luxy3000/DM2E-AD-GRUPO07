@@ -1,11 +1,15 @@
 package es.dm2egrupo07.accesoadatos.programa01;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Clase creada para manejar los datos de una ciudad
  */
+@AllArgsConstructor
 @Getter
 public class CityWeather {
     /* Seguir editando según se necesite para las otras clases */
