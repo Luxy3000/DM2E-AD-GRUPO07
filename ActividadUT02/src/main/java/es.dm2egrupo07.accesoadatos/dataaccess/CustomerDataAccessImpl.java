@@ -188,8 +188,9 @@ public class CustomerDataAccessImpl implements CustomerDataAccess {
     public Customer save(Customer customer) {
 
         if (existsById(customer.getCustomerNumber())) {
-            update(customer);
-            return customer;
+            //Corrección -->
+            return update(customer);
+            //Corrección -->
         }
 
         try (Connection connection = ConnectionPool.getInstance().getConnection();
@@ -209,17 +210,17 @@ public class CustomerDataAccessImpl implements CustomerDataAccess {
             ps.setInt(12, customer.getSalesRepEmployeeNumber());
             ps.setDouble(13, customer.getCreditLimit());
 
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Optional<Customer> customerSaved = findById(customer.getCustomerNumber());
-                }
+            //Corrección -->
+            int filas = ps.executeUpdate();
+            if(filas > 0){
+                return findById(customer.getCustomerNumber()).orElseThrow();
+            } else {
+               throw new SQLException("Error al insertar el cliente: no se ha creado ninguna fila");
             }
         } catch (SQLException e) {
-            System.out.println("ERROR al intentar guardar o crear un Customer.\n");
-            e.printStackTrace();
+            throw new RuntimeException("ERROR al intentar guardar o crear un Customer.", e);
         }
-
-        return null;
+        //Corrección -->
     }
 
     /**
@@ -237,14 +238,14 @@ public class CustomerDataAccessImpl implements CustomerDataAccess {
             ps.setString(3, customer.getPhone());
             ps.setInt(4, customer.getCustomerNumber());
 
-            ResultSet rs = ps.executeQuery();
+            //Corrección -->
+            int lineas = ps.executeUpdate();
+            return findById(customer.getCustomerNumber()).orElseThrow();
 
         } catch (SQLException e) {
-            System.out.println("ERROR al intentar actualizar un Customer.");
-            e.printStackTrace();
+            throw new RuntimeException("ERROR al intentar actualizar un Customer.", e);
         }
-
-        return null;
+        //Corrección -->
     }
 
     /**

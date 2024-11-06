@@ -111,6 +111,7 @@ public class OrderDataAccessImpl implements OrderDataAccess {
         try (Connection conn = ConnectionPool.getInstance().getConnection();){
             conn.setAutoCommit(false);
 
+            //Hay cosas que se crean automáticamente
             try(PreparedStatement ps = conn.prepareStatement(orderSql);) {
                 ps.setInt(1, orderDto.getOrderNumber());
                 ps.setDate(2, new Date(orderDto.getOrderDate().getTime()));

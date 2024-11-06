@@ -49,7 +49,7 @@ public class ProductTests {
      * Muestra un mensaje indicando si se encontró el producto o no.
      */
     public void testFindById() {
-        String productId = "1";
+        String productId = "S10_1678";
         Optional<Product> productIdFound = productService.findById(productId);
         if (productIdFound.isPresent()) {
             System.out.printf("Se encontro el producto con el ID %d\n", productId);
