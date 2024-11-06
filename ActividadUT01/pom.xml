@@ -20,6 +20,17 @@
             <artifactId>lombok</artifactId>
             <version>1.18.34</version>
         </dependency>
+
+         <dependency>
+            <groupId>one.gfw</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>4.0.5</version>
+        </dependency>
     </dependencies>
 
 </project>
