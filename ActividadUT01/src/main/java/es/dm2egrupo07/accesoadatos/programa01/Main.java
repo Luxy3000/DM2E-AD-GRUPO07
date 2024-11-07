@@ -13,15 +13,16 @@ public class Main {
     public static void main(String[] args) throws ParserConfigurationException, TransformerException {
 
 
-       /* System.out.println("¿Donde te gustaría guardar el fichero XML?");
+       System.out.println("¿Donde te gustaría guardar el fichero XML?");
         String outputFile = scanner.nextLine();
         if (weatherDataWriter.ubicacionXmlSalida(outputFile)) {
+            WeatherDataWriter weatherDataWriter = new WeatherDataWriter();
+            weatherDataWriter.generarXml();
             System.out.println("Generando el fichero...");
         } else {
             System.out.println("El programa se ha terminado.");
-        }*/
+        }
 
-        WeatherDataWriter weatherDataWriter = new WeatherDataWriter();
-        weatherDataWriter.generarXml();
+
     }
 }
