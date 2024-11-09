@@ -16,7 +16,7 @@ public class WeatherDataWriter {
 
     public static final int INDENT = 5;
 
-    public void generarXml() throws ParserConfigurationException, TransformerException {
+    public void generarXml(String outputFilePath) throws ParserConfigurationException, TransformerException {
 
         List<CityWeather> cities = getCityWeatherData();
 
@@ -41,25 +41,24 @@ public class WeatherDataWriter {
             cityElement.setAttribute("name", cityWeather.getName());
 
             Element avgTempElement = xmlDocument.createElement("average-temperature");
-
             Element avgElement = xmlDocument.createElement("avg");
-            avgElement.appendChild(xmlDocument.createTextNode(String.format("%.1f", avgTemperature)));
+            avgElement.appendChild(xmlDocument.createTextNode(String.format("%.2f", avgTemperature)));
 
             Element maxElement = xmlDocument.createElement("max");
-            maxElement.appendChild(xmlDocument.createTextNode(String.format("%.1f", maxTemperature)));
+            maxElement.appendChild(xmlDocument.createTextNode(String.format("%.2f", maxTemperature)));
 
             Element minElement = xmlDocument.createElement("min");
-            minElement.appendChild(xmlDocument.createTextNode(String.format("%.1f", minTemperature)));
+            minElement.appendChild(xmlDocument.createTextNode(String.format("%.2f", minTemperature)));
 
             avgTempElement.appendChild(avgElement);
             avgTempElement.appendChild(maxElement);
             avgTempElement.appendChild(minElement);
 
             Element humidityElement = xmlDocument.createElement("average-humidity");
-            humidityElement.appendChild(xmlDocument.createTextNode(String.format("%.1f", avgHumidity)));
+            humidityElement.appendChild(xmlDocument.createTextNode(String.format("%.2f", avgHumidity)));
 
             Element pressureElement = xmlDocument.createElement("average-pressure");
-            pressureElement.appendChild(xmlDocument.createTextNode(String.format("%.1f", avgPressure)));
+            pressureElement.appendChild(xmlDocument.createTextNode(String.format("%.2f", avgPressure)));
 
             cityElement.appendChild(avgTempElement);
             cityElement.appendChild(humidityElement);
@@ -67,8 +66,6 @@ public class WeatherDataWriter {
 
             citiesElement.appendChild(cityElement);
         }
-
-        dumpToConsole(xmlDocument);
 
     }
 
@@ -112,7 +109,7 @@ public class WeatherDataWriter {
     }
 
 
-    private static void dumpToConsole(Document newDoc) throws TransformerException {
+    public void dumpToConsole(Document newDoc) throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         transformerFactory.setAttribute("indent-number", INDENT);
         Transformer transformer = transformerFactory.newTransformer();

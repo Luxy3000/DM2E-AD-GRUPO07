@@ -1,8 +1,12 @@
 package es.dm2egrupo07.accesoadatos.programa01;
 
 
+import org.xml.sax.SAXException;
+
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class Main {
@@ -25,7 +29,5 @@ public class Main {
         } else {
             System.out.println("El programa se ha terminado.");
         }
-
-
     }
 }
