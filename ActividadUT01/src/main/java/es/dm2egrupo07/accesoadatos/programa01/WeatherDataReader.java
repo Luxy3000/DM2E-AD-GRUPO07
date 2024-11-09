@@ -1,8 +1,6 @@
 package es.dm2egrupo07.accesoadatos.programa01;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -60,5 +58,47 @@ public class WeatherDataReader {
             Node nodo = nodos.item(i);
             System.out.println(nodo.getTextContent());
         }*/
+
+        CityWeatherManager manager = CityWeatherManager.getInstance();
+
+        NodeList cityNodes = fichero.getElementsByTagName("city");
+
+        for (int i = 0; i < cityNodes.getLength(); i++) {
+            Element cityElement = (Element) cityNodes.item(i);
+            CityWeather cityWeather = getCityWeather(cityElement);
+
+            manager.addCity(cityWeather);
+        }
+
+        System.out.println("Datos de las ciudades cargados correctamente.");
+    }
+
+    private static CityWeather getCityWeather(Element cityElement) {
+        String cityId = cityElement.getAttribute("id");
+        String cityName = cityElement.getAttribute("name");
+
+        CityWeather cityWeather = new CityWeather(cityId, cityName);
+
+        NodeList temperatureNodes = cityElement.getElementsByTagName("temperature");
+        for (int j = 0; j < temperatureNodes.getLength(); j++) {
+            Element tempElement = (Element) temperatureNodes.item(j);
+            double maxTemp = Double.parseDouble(tempElement.getAttribute("max"));
+            double minTemp = Double.parseDouble(tempElement.getAttribute("min"));
+            cityWeather.addTemperature(maxTemp);
+            cityWeather.addTemperature(minTemp);
+        }
+
+        NodeList humidityNodes = cityElement.getElementsByTagName("humidity");
+        for (int j = 0; j < humidityNodes.getLength(); j++) {
+            double humidity = Double.parseDouble(humidityNodes.item(j).getTextContent());
+            cityWeather.addHumidity(humidity);
+        }
+
+        NodeList pressureNodes = cityElement.getElementsByTagName("pressure");
+        for (int j = 0; j < pressureNodes.getLength(); j++) {
+            double pressure = Double.parseDouble(pressureNodes.item(j).getTextContent());
+            cityWeather.addPressure(pressure);
+        }
+        return cityWeather;
     }
 }
