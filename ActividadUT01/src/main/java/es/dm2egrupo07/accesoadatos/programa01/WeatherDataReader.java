@@ -73,6 +73,13 @@ public class WeatherDataReader {
         System.out.println("Datos de las ciudades cargados correctamente.");
     }
 
+    /**
+     * Crea un objeto CityWeather a partir de un elemento XML que representa una ciudad.
+     *
+     * @param cityElement Elemento XML que contiene los datos de una ciudad.
+     * @return Objeto CityWeather con los datos de la ciudad procesada.
+     * @throws NumberFormatException Si algún dato numérico no puede ser parseado.
+     */
     private static CityWeather getCityWeather(Element cityElement) {
         String cityId = cityElement.getAttribute("id");
         String cityName = cityElement.getAttribute("name");

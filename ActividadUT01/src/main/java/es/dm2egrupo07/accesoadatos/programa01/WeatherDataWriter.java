@@ -10,15 +10,24 @@ import java.io.File;
 import java.util.*;
 
 /**
- * Clase creada para generar el archivo XML de salina y gestionar la ubicación para el archivo de salida
+ * Clase creada para generar el archivo XML de salida con datos meteorológicos procesados
+ * y gestionar la ubicación del archivo de salida.
  */
 public class WeatherDataWriter {
 
+    /** Constante para definir la cantidad de espacios usados en la indentación del XML. */
     public static final int INDENT = 5;
 
+    /**
+     * Genera un archivo XML con los datos promedio de cada ciudad.
+     *
+     * @param outputFilePath Ruta del archivo XML de salida.
+     * @throws ParserConfigurationException Si hay un error al configurar el analizador.
+     * @throws TransformerException         Si ocurre un error durante la transformación del documento.
+     */
     public void generarXml(String outputFilePath) throws ParserConfigurationException, TransformerException {
 
-        List<CityWeather> cities = getCityWeatherData();
+        List<CityWeather> cities = CityWeatherManager.getInstance().getCities();
 
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document xmlDocument = builder.newDocument();
@@ -67,27 +76,27 @@ public class WeatherDataWriter {
             citiesElement.appendChild(cityElement);
         }
 
+        dumpToConsole(xmlDocument);
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", String.valueOf(INDENT));
+        transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+
+        DOMSource source = new DOMSource(xmlDocument);
+        StreamResult result = new StreamResult(new File(outputFilePath));
+        transformer.transform(source, result);
+
+        System.out.println("Archivo XML generado correctamente en: " + outputFilePath);
     }
 
-    private static List<CityWeather> getCityWeatherData() {
-        List<CityWeather> cities = new ArrayList<>();
-
-        CityWeather madridWeather = new CityWeather("c001", "Madrid");
-        madridWeather.addTemperature(18);
-        madridWeather.addTemperature(22);
-        madridWeather.addTemperature(16);
-        madridWeather.addHumidity(80);
-        madridWeather.addHumidity(60);
-        madridWeather.addHumidity(85);
-        madridWeather.addPressure(1015);
-        madridWeather.addPressure(1013);
-        madridWeather.addPressure(1016);
-
-        cities.add(madridWeather);
-
-        return cities;
-    }
-
+    /**
+     * Verifica si el archivo XML de salida ya existe y pide confirmación para sobrescribirlo.
+     *
+     * @param ruta Ruta del archivo XML de salida.
+     * @return {@code true} si se puede sobrescribir o si el archivo no existe, {@code false} en caso contrario.
+     */
     public boolean ubicacionXmlSalida(String ruta) {
         File file = new File(ruta);
         Scanner scanner = new Scanner(System.in);
@@ -108,7 +117,12 @@ public class WeatherDataWriter {
         }
     }
 
-
+    /**
+     * Muestra el contenido del documento XML en consola con la estructura y formato configurados.
+     *
+     * @param newDoc Documento XML a volcar en consola.
+     * @throws TransformerException Si ocurre un error durante la transformación.
+     */
     public void dumpToConsole(Document newDoc) throws TransformerException {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         transformerFactory.setAttribute("indent-number", INDENT);
