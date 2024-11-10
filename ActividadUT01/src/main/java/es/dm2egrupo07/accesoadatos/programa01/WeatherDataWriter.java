@@ -7,6 +7,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -26,6 +27,11 @@ public class WeatherDataWriter {
      * @throws TransformerException         Si ocurre un error durante la transformación del documento.
      */
     public void generarXml(String outputFilePath) throws ParserConfigurationException, TransformerException {
+
+        if (!crearArchivo(outputFilePath)) {
+            System.err.println("No se pudo crear el archivo en la ruta especificada.");
+            return;
+        }
 
         List<CityWeather> cities = CityWeatherManager.getInstance().getCities();
 
@@ -88,7 +94,6 @@ public class WeatherDataWriter {
         StreamResult result = new StreamResult(new File(outputFilePath));
         transformer.transform(source, result);
 
-        System.out.println("Archivo XML generado correctamente en: " + outputFilePath);
     }
 
     /**
@@ -116,6 +121,41 @@ public class WeatherDataWriter {
             return true;
         }
     }
+
+    /**
+     * Verifica y crea el archivo en la ruta especificada. Si la ruta es un directorio,
+     * se agrega un archivo predeterminado dentro de ese directorio.
+     *
+     * @param outputFilePath Ruta completa al archivo o directorio.
+     * @return {@code true} si el archivo se puede crear o ya existe, {@code false} si no se puede crear.
+     */
+    public boolean crearArchivo(String outputFilePath) {
+        File file = new File(outputFilePath);
+
+        if (file.isDirectory() || outputFilePath.endsWith("\\") || outputFilePath.endsWith("/")) {
+            file = new File(file, "output.xml");
+        }
+
+        try {
+            if (file.getParentFile() != null && !file.getParentFile().exists()) {
+                if (!file.getParentFile().mkdirs()) {
+                    System.err.println("No se pudieron crear los directorios: " + file.getParentFile());
+                    return false;
+                }
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            return true;
+        } catch (IOException e) {
+            System.err.println("Error al crear el archivo en la ruta especificada: " + file.getAbsolutePath());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     /**
      * Muestra el contenido del documento XML en consola con la estructura y formato configurados.

@@ -46,6 +46,10 @@ public class Main {
         System.out.println("¿Dónde te gustaría guardar el fichero XML?");
         String outputFile = scanner.nextLine();
 
+        if (outputFile.endsWith("\\") || outputFile.endsWith("/")) {
+            outputFile += "output.xml";
+        }
+
         if (weatherDataWriter.ubicacionXmlSalida(outputFile)) {
             System.out.println("Generando el fichero...");
             weatherDataWriter.generarXml(outputFile);
