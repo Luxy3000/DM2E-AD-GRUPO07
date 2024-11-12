@@ -14,20 +14,20 @@ public class ReportGenerator {
      * @param outputFilePath  Ruta del archivo de salida donde se guardará el informe.
      * @throws IOException Si ocurre un error al escribir el archivo.
      */
-    public void generateReport(List<CityWeather> cityWeatherList, String outputFilePath) throws IOException {
+    public void generateReport(List<CityStatistics> cityWeatherList, String outputFilePath) throws IOException {
         StringBuilder reportContent = new StringBuilder();
 
-        for (CityWeather cityWeather : cityWeatherList) {
-            reportContent.append(cityWeather.getCityName()).append("\n");
+        for (CityStatistics cityStats : cityWeatherList) {
+            reportContent.append(cityStats.getCityName()).append("\n");
             reportContent.append("------------------------------------------------------------------------\n");
             reportContent.append(String.format("%-10s %-10s %-10s %-15s %-15s\n",
                     "T mínima", "T máxima", "T media", "Humedad media", "Presión media"));
             reportContent.append(String.format("%-10.2f %-10.2f %-10.2f %-15.2f %-15.2f\n",
-                    cityWeather.getMinTemperature(),
-                    cityWeather.getMaxTemperature(),
-                    cityWeather.getAvgTemperature(),
-                    cityWeather.getAvgHumidity(),
-                    cityWeather.getAvgPressure()));
+                    cityStats.getMinTemperature(),
+                    cityStats.getMaxTemperature(),
+                    cityStats.getAvgTemperature(),
+                    cityStats.getAvgHumidity(),
+                    cityStats.getAvgPressure()));
             reportContent.append("\n");
         }
 
