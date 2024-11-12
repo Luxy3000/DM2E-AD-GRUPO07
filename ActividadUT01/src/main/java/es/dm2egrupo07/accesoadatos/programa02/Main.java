@@ -19,7 +19,7 @@ public class Main {
             }
 
             reader.leerFichero(inputPath);
-            List<CityWeather> cities = reader.getCities();
+            List<CityWeather> cities = reader.getCities(); //<-- Solucionar esto
 
             System.out.println("¿Dónde te gustaría guardar el informe?");
             String outputPath = scanner.nextLine();
