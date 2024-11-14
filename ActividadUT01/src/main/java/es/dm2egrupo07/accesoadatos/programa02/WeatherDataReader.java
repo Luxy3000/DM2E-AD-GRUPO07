@@ -5,8 +5,9 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -54,5 +55,29 @@ public class WeatherDataReader {
         // Para comprobar que el fichero se ha leido correctamente
         // String textoGenerado = handler.getText();
         // System.out.println(textoGenerado);
+    }
+
+    /**
+     * Método para obtener las ciudades.
+     * @return una lista con las ciudades y sus valores
+     */
+    public List<CityStatistics> getCities() {
+        List<CityWeather> cities = new ArrayList<>();
+        Handler handler = new Handler();
+
+        for (int i = 0; i < handler.getListaId().size(); i++) {
+            CityWeather city = new CityWeather();
+            city.setId(handler.getListaId().get(i));
+            city.setName(handler.getListaName().get(i));
+
+            for (int j = 0; j < handler.getListaId().size(); j++) {
+                city.addTemperature(handler.getListaTemperatures().get(i).get(j));
+                city.addHumidity(handler.getListaHumidities().get(i).get(j));
+                city.addPressure(handler.getListaPressures().get(i).get(j));
+            }
+        }
+
+        WeatherStatistics statistics = new WeatherStatistics();
+        return statistics.calculateStatistics(cities);
     }
 }
