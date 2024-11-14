@@ -1,12 +1,16 @@
 package es.dm2egrupo07.accesoadatos.programa02;
 
+import lombok.Getter;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * Clase para analizar el contenido del fichero XML, en concreto los nodos city, y almacenarlo en formato de cadena de
- * texto.
+ * Clase para analizar el contenido del fichero XML, en concreto los nodos city, temperature, humidity y pressure, y
+ * almacenarlos en listas para poder procesarlas luego y en formato de cadena de texto.
  */
 public class Handler extends DefaultHandler {
     private StringBuilder resultado = new StringBuilder();
@@ -17,13 +21,23 @@ public class Handler extends DefaultHandler {
 
     private String cityId;
     private String cityName;
-    private int max;
-    private int min;
-    private int humidity;
-    private int pressure;
+    private List<Double> temperatures = new ArrayList<>();
+    private List<Double> humidities = new ArrayList<>();
+    private List<Double> pressures = new ArrayList<>();
+
+    @Getter
+    private List<String> listaId = new ArrayList<>();
+    @Getter
+    private List<String> listaName = new ArrayList<>();
+    @Getter
+    private List<List<Double>> listaTemperatures = new ArrayList<>();
+    @Getter
+    private List<List<Double>> listaHumidities = new ArrayList<>();
+    @Getter
+    private List<List<Double>> listaPressures = new ArrayList<>();
 
     /**
-     * Método para empezar a procesar un elemento city del fichero XML.
+     * Método para empezar a procesar un elemento city del fichero XML y guardar los atributos correspondientes.
      * @param uri The Namespace URI, or the empty string if the
      *        element has no Namespace URI or if Namespace
      *        processing is not being performed.
@@ -44,30 +58,29 @@ public class Handler extends DefaultHandler {
                 enNodoCity = true;
                 cityId = attributes.getValue("id");
                 cityName = attributes.getValue("name");
-                System.out.println();
-                System.out.println();
+                listaId.add(cityId);
+                listaName.add(cityName);
                 break;
 
             case "temperature":
                 enNodoTemperatura = true;
-                max = Integer.parseInt(attributes.getValue("max"));
-                min = Integer.parseInt(attributes.getValue("min"));
+                temperatures.add(Double.parseDouble(attributes.getValue("max")));
+                temperatures.add(Double.parseDouble(attributes.getValue("min")));
                 break;
 
             case "humidity":
                 enNodoHumedad = true;
-                humidity = Integer.parseInt(attributes.getValue("humidity"));
                 break;
 
             case "pressure":
                 enNodoPresion = true;
-                pressure = Integer.parseInt(attributes.getValue("pressure"));
                 break;
         }
     }
 
     /**
-     * Método para procesar el contenido que se encuentre entre las etiquetas de un elemento city del fichero XML.
+     * Método para procesar y guardar el contenido que se encuentre entre las etiquetas de un elemento de city del
+     * fichero XML.
      * @param ch The characters.
      * @param start The start position in the character array.
      * @param length The number of characters to use from the
@@ -78,16 +91,18 @@ public class Handler extends DefaultHandler {
     public void characters(char[] ch, int start, int length) throws SAXException {
         if (enNodoHumedad) {
             resultado.append(ch, start, length);
-            //stringHumidity +=
+            humidities.add(Double.parseDouble(resultado.toString()));
         }
 
         if (enNodoPresion) {
             resultado.append(ch, start, length);
+            pressures.add(Double.parseDouble(resultado.toString()));
         }
     }
 
     /**
-     * Método para terminar de procesar un elemento city del fichero XML.
+     * Método para terminar de procesar un elemento de city del fichero XML y guardar los valores en su array
+     * correspondiente.
      * @param uri The Namespace URI, or the empty string if the
      *        element has no Namespace URI or if Namespace
      *        processing is not being performed.
@@ -104,20 +119,25 @@ public class Handler extends DefaultHandler {
             case "city":
                 enNodoCity = false;
                 System.out.println("Ciudad finalizada");
-                System.out.printf("Nombre: " + cityName);
-                System.out.printf("Id: " + cityId);
+                resultado.append("\n");
                 break;
 
             case "temperature":
                 enNodoTemperatura = false;
+                listaTemperatures.add(temperatures);
+                resultado.append("\n");
                 break;
 
             case "humidity":
                 enNodoHumedad = false;
+                listaHumidities.add(humidities);
+                resultado.append("\n");
                 break;
 
             case "pressure":
                 enNodoPresion = false;
+                listaPressures.add(pressures);
+                resultado.append("\n");
                 break;
         }
     }
