@@ -27,12 +27,13 @@ public class Main {
             System.out.println("¿Dónde desea guardar el informe?");
             String outputPath = scanner.nextLine();
 
-            reportGenerator.generateReport(cityStatistics, outputPath);
+            if (!reportGenerator.validarUbicacionArchivo(outputPath)) {
+                return;
+            }
+                reportGenerator.generateReport(cityStatistics, outputPath);
 
         } catch (Exception e) {
             System.err.println("Ocurrió un error: " + e.getMessage());
-        } finally {
-            scanner.close();
         }
     }
 }
