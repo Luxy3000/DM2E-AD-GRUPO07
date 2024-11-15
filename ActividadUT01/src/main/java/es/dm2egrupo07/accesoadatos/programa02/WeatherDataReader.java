@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class WeatherDataReader {
 
     private static final Scanner scanner = new Scanner(System.in);
-    private Handler handler;  // Manejador para procesar el XML
+    private Handler handler;
 
     /**
      * Pregunta al usuario la ruta del archivo XML y valida si el archivo existe.
@@ -55,7 +55,7 @@ public class WeatherDataReader {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
 
-        handler = new Handler();  // Inicializa el handler para procesar el XML
+        handler = new Handler();
         parser.parse(ficheroXML, handler);
 
         System.out.println("El archivo XML se ha procesado correctamente.");
