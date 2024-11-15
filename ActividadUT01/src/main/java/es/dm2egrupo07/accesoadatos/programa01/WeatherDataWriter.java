@@ -28,11 +28,6 @@ public class WeatherDataWriter {
      */
     public void generarXml(String outputFilePath) throws ParserConfigurationException, TransformerException {
 
-        if (!crearArchivo(outputFilePath)) {
-            System.err.println("No se pudo crear el archivo en la ruta especificada.");
-            return;
-        }
-
         List<CityWeather> cities = CityWeatherManager.getInstance().getCities();
 
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -97,65 +92,34 @@ public class WeatherDataWriter {
     }
 
     /**
-     * Verifica si el archivo XML de salida ya existe y pide confirmación para sobrescribirlo.
+     * Verifica la ubicación del archivo XML de salida.
+     * Gestiona si se sobrescribe o finaliza el programa según las condiciones descritas.
      *
      * @param ruta Ruta del archivo XML de salida.
-     * @return {@code true} si se puede sobrescribir o si el archivo no existe, {@code false} en caso contrario.
+     * @return {@code true} si se puede continuar con la generación del archivo, {@code false} si el programa debe finalizar.
      */
     public boolean ubicacionXmlSalida(String ruta) {
         File file = new File(ruta);
         Scanner scanner = new Scanner(System.in);
 
-        if (file.exists()) {
+        if (file.isDirectory()) {
+            System.out.println("La ruta especificada es un directorio. El programa finalizará.");
+            return false;
+        }else if (!file.exists()) {
+            System.out.println("El archivo especificado no existe. El programa finalizará.");
+            return false;
+        }else {
             System.out.println("El archivo ya existe: " + ruta);
             System.out.print("¿Quieres sobrescribirlo? (si/no): ");
-            String response = scanner.nextLine().toLowerCase();
-
+            String response = scanner.nextLine().trim().toLowerCase();
             if (response.equals("si")) {
                 return true;
             } else {
-                System.out.println("El programa terminará.");
+                System.out.println("El programa se ha terminado.");
                 return false;
             }
-        } else {
-            return true;
         }
     }
-
-    /**
-     * Verifica y crea el archivo en la ruta especificada. Si la ruta es un directorio,
-     * se agrega un archivo predeterminado dentro de ese directorio.
-     *
-     * @param outputFilePath Ruta completa al archivo o directorio.
-     * @return {@code true} si el archivo se puede crear o ya existe, {@code false} si no se puede crear.
-     */
-    public boolean crearArchivo(String outputFilePath) {
-        File file = new File(outputFilePath);
-
-        if (file.isDirectory() || outputFilePath.endsWith("\\") || outputFilePath.endsWith("/")) {
-            file = new File(file, "output.xml");
-        }
-
-        try {
-            if (file.getParentFile() != null && !file.getParentFile().exists()) {
-                if (!file.getParentFile().mkdirs()) {
-                    System.err.println("No se pudieron crear los directorios: " + file.getParentFile());
-                    return false;
-                }
-            }
-
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            return true;
-        } catch (IOException e) {
-            System.err.println("Error al crear el archivo en la ruta especificada: " + file.getAbsolutePath());
-            e.printStackTrace();
-            return false;
-        }
-    }
-
 
     /**
      * Muestra el contenido del documento XML en consola con la estructura y formato configurados.
