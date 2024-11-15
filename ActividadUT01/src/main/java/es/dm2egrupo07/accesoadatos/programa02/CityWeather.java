@@ -15,29 +15,56 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CityWeather {
+    /** Nombre de la ciudad. */
     private String name;
-    private String id;
-    private List<Double> temperatures;
-    private List<Double> humidities;
-    private List<Double> pressures;
 
-    public CityWeather(String id, String name){
+    /** ID de la ciudad. */
+    private String id;
+
+    /** Lista de temperaturas registradas en la ciudad. */
+    private List<Double> temperatures = new ArrayList<>();
+
+    /** Lista de humedades registradas en la ciudad. */
+    private List<Double> humidities = new ArrayList<>();
+
+    /** Lista de presiones registradas en la ciudad. */
+    private List<Double> pressures = new ArrayList<>();
+
+    /**
+     * Constructor que inicializa la ciudad con un nombre y un ID.
+     *
+     * @param id   ID de la ciudad.
+     * @param name Nombre de la ciudad.
+     */
+    public CityWeather(String id, String name) {
         this.id = id;
         this.name = name;
-        this.temperatures = new ArrayList<>();
-        this.humidities = new ArrayList<>();
-        this.pressures = new ArrayList<>();
     }
 
+    /**
+     * Añade un valor de temperatura a la lista.
+     *
+     * @param temp Valor de la temperatura.
+     */
     public void addTemperature(double temp) {
         temperatures.add(temp);
     }
 
+    /**
+     * Añade un valor de humedad a la lista.
+     *
+     * @param hum Valor de la humedad.
+     */
     public void addHumidity(double hum) {
         humidities.add(hum);
     }
 
-    public void addPressure(double p) {
-        pressures.add(p);
+    /**
+     * Añade un valor de presión a la lista.
+     *
+     * @param pressure Valor de la presión.
+     */
+    public void addPressure(double pressure) {
+        pressures.add(pressure);
     }
 }

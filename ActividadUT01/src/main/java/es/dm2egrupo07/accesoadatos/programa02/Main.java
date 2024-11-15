@@ -4,7 +4,11 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase principal para ejecutar el programa.
+ */
 public class Main {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         WeatherDataReader reader = new WeatherDataReader();
@@ -18,13 +22,12 @@ public class Main {
             }
 
             reader.leerFichero(inputPath);
-            List<CityWeather> cities = reader.getCities();
-            List<CityStatistics> statistics = WeatherStatistics.calculateStatistics(cities);
+            List<CityStatistics> cityStatistics = reader.getCitiesStatistics();
 
-            String outputPath = reportGenerator.pedirUbicacionSalida();
-            if (outputPath != null) {
-                reportGenerator.generateReport(statistics, outputPath);
-            }
+            System.out.println("¿Dónde desea guardar el informe?");
+            String outputPath = scanner.nextLine();
+
+            reportGenerator.generateReport(cityStatistics, outputPath);
 
         } catch (Exception e) {
             System.err.println("Ocurrió un error: " + e.getMessage());

@@ -14,43 +14,51 @@ import java.util.Scanner;
  * Clase creada para leer y validar el archivo XML.
  */
 public class WeatherDataReader {
+
     private static final Scanner scanner = new Scanner(System.in);
+    private Handler handler;  // Manejador para procesar el XML
 
     /**
-     * Método para preguntar al usuario la ruta del fichero a leer y si el fichero existe.
-     * @return el camino al archivo
+     * Pregunta al usuario la ruta del archivo XML y valida si el archivo existe.
+     *
+     * @return Path del archivo si existe, o null si no se encuentra.
      */
     public Path preguntarUbicacionXML() {
-        System.out.println("Introduzca la ruta del fichero que quiera leer: ");
+        System.out.println("Introduzca la ruta del fichero XML a procesar: ");
         String ruta = scanner.nextLine();
 
         Path ubicacion = Path.of(ruta);
 
         if (ubicacion.toFile().exists()) {
-            System.out.println("El fichero ha sido encontrado correctamente.");
+            System.out.println("El fichero se ha encontrado correctamente.");
             return ubicacion;
         } else {
-            System.out.println("La ruta introducida no existe");
+            System.out.println("La ruta especificada no existe. Inténtelo de nuevo.");
             return null;
         }
     }
 
     /**
-     * Método para leer el fichero que se encuentre en la ubicación recogida en el método anterior.
-     * @param ubicacion
-     * @throws ParserConfigurationException
-     * @throws SAXException
-     * @throws IOException
+     * Lee y procesa el archivo XML desde la ubicación especificada.
+     *
+     * @param ubicacion Path del archivo XML.
+     * @throws ParserConfigurationException Si hay un error en la configuración del parser.
+     * @throws SAXException Si ocurre un error al analizar el XML.
+     * @throws IOException Si ocurre un error de entrada/salida.
      */
     public void leerFichero(Path ubicacion) throws ParserConfigurationException, SAXException, IOException {
-        File ficheroXML = ubicacion.toFile();
+        if (ubicacion == null) {
+            throw new IllegalArgumentException("La ubicación del archivo no puede ser nula.");
+        }
 
+        File ficheroXML = ubicacion.toFile();
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
 
-        Handler handler = new Handler();
-
+        handler = new Handler();  // Inicializa el handler para procesar el XML
         parser.parse(ficheroXML, handler);
+
+        System.out.println("El archivo XML se ha procesado correctamente.");
 
         // Para comprobar que el fichero se ha leido correctamente
         // String textoGenerado = handler.getText();
@@ -58,26 +66,16 @@ public class WeatherDataReader {
     }
 
     /**
-     * Método para obtener las ciudades.
-     * @return una lista con las ciudades y sus valores
+     * Obtiene las estadísticas meteorológicas de las ciudades procesadas.
+     *
+     * @return Lista de objetos CityStatistics con estadísticas calculadas.
      */
-    public List<CityStatistics> getCities() {
-        List<CityWeather> cities = new ArrayList<>();
-        Handler handler = new Handler();
-
-        for (int i = 0; i < handler.getListaId().size(); i++) {
-            CityWeather city = new CityWeather();
-            city.setId(handler.getListaId().get(i));
-            city.setName(handler.getListaName().get(i));
-
-            for (int j = 0; j < handler.getListaId().size(); j++) {
-                city.addTemperature(handler.getListaTemperatures().get(i).get(j));
-                city.addHumidity(handler.getListaHumidities().get(i).get(j));
-                city.addPressure(handler.getListaPressures().get(i).get(j));
-            }
+    public List<CityStatistics> getCitiesStatistics() {
+        if (handler == null || handler.getCities().isEmpty()) {
+            throw new IllegalStateException("El archivo XML no ha sido procesado correctamente.");
         }
 
-        WeatherStatistics statistics = new WeatherStatistics();
-        return statistics.calculateStatistics(cities);
+        List<CityWeather> cities = handler.getCities();
+        return WeatherStatistics.calculateStatistics(cities);
     }
 }

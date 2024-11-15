@@ -14,9 +14,16 @@ import java.util.List;
  */
 @Getter
 public class Handler extends DefaultHandler {
+    /** Lista de objetos CityWeather que representan cada ciudad procesada. */
     private final List<CityWeather> cities = new ArrayList<>();
+
+    /** Ciudad actual que se está procesando. */
     private CityWeather currentCity;
+
+    /** Indicador de si se está procesando un nodo de humedad. */
     private boolean enNodoHumedad = false;
+
+    /** Indicador de si se está procesando un nodo de presión. */
     private boolean enNodoPresion = false;
 
     @Override

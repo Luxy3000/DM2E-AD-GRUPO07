@@ -7,6 +7,12 @@ import java.util.*;
  */
 public class WeatherStatistics {
 
+    /**
+     * Calcula las estadísticas para cada ciudad y las devuelve como una lista de CityStatistics.
+     *
+     * @param cities Lista de objetos CityWeather.
+     * @return Lista de objetos CityStatistics con las estadísticas calculadas.
+     */
     public static List<CityStatistics> calculateStatistics(List<CityWeather> cities){
         List<CityStatistics> statisticsList = new ArrayList<>();
 
