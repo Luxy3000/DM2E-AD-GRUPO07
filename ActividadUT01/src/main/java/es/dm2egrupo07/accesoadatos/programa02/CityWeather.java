@@ -29,7 +29,7 @@ public class CityWeather {
         this.pressures = new ArrayList<>();
     }
 
-    private void addTemperature(double temp) {
+    public void addTemperature(double temp) {
         temperatures.add(temp);
     }
 

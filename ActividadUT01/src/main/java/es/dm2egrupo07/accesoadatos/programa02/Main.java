@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         WeatherDataReader reader = new WeatherDataReader();
@@ -19,12 +18,13 @@ public class Main {
             }
 
             reader.leerFichero(inputPath);
-            List<CityStatistics> cities = reader.getCities(); //<-- Solucionar esto
+            List<CityWeather> cities = reader.getCities();
+            List<CityStatistics> statistics = WeatherStatistics.calculateStatistics(cities);
 
-            System.out.println("¿Dónde te gustaría guardar el informe?");
-            String outputPath = scanner.nextLine();
-
-            reportGenerator.generateReport(cities, outputPath);
+            String outputPath = reportGenerator.pedirUbicacionSalida();
+            if (outputPath != null) {
+                reportGenerator.generateReport(statistics, outputPath);
+            }
 
         } catch (Exception e) {
             System.err.println("Ocurrió un error: " + e.getMessage());
@@ -33,5 +33,3 @@ public class Main {
         }
     }
 }
-
-
